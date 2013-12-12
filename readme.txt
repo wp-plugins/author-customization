@@ -4,7 +4,7 @@ Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.5.2
 Tested up to: 3.8
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,5 +48,14 @@ In order for author information to appear on your posts and pages, the theme you
 
 == Changelog ==
 
+= 0.1.1 =
+* Bug fix: changes made to author info after a new post author was selected were not being saved because the server was not being told whether JavaScript was active.
+* Bug fix: "loading" spinner image displayed when a new post author is selected was being shown out of proportion.
+
 = 0.1.0 =
 Initial release.
+
+== Upgrade Notice ==
+
+= 0.1.1 =
+Major bug in saving customized author info when selecting a new post author has been corrected.
