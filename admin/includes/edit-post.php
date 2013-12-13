@@ -43,20 +43,20 @@ function cc_author_add_metabox() {
 	
 	/* Add custom style for meta box */
 	wp_enqueue_style( // Add style call to <head>
-		'cc-author-metabox',
-		plugins_url(
-			'assets/css/edit-post.css',
-			dirname( __FILE__ )
-		)
+		'cc-author-metabox',														// Stylesheet hook name
+		plugins_url( 'assets/css/edit-post.css', dirname( __FILE__ ) ),				// URL for stylesheet
+		array(),																	// Style dependencies
+		$_ENV['cc_author_plugindata']['Version']									// Stylesheet version, equal to plugin version
 	);
 	
 	/* Add script for changing the post author */
 	wp_enqueue_script(																// Add JS to <head>
 		'cc-author-change-post-author',												// Registered script handle
-		plugins_url( 'assets/js/change-post-author.js', dirname( __FILE__ ) ),		// URL to script
+		plugins_url( 'assets/js/edit-post.js', dirname( __FILE__ ) ),				// URL to script
 		array(																		// Script dependencies
 			'jquery'
-		)
+		),
+		$_ENV['cc_author_plugindata']['Version']									// Script version, equal to plugin version
 	);
 	wp_localize_script(																// Localize script for AJAX calls
 		'cc-author-change-post-author',												// Name of script call being localized
@@ -89,21 +89,26 @@ function cc_author_metabox( $post ) {
 	/* Display the meta box contents */
 	?>
 	<div class="cc_author_metabox">
-		<p>Changes made to this information will only apply to this post, and will not be saved to the user's profile.</p>
+		<p>The information below will be saved to this post, and (unless selected) will not be saved to the author's user profile.</p>
 		<div style="color: #FF0000; font-weight: bold;"><noscript>
 				You have JavaScript disabled. If you change the post author in the dropdown, you will need to save the post for the fields below to update. Please enable JavaScript for a better experience.
 		</noscript></div>
 		<?php
 		if ( current_user_can( 'edit_others_posts' ) || current_user_can( 'edit_others_pages' ) ) { // Check the capabilities of the current user for sufficient privileges
-			wp_dropdown_users( array(
-				'name'			=> 'cc_author_postauthor', // Name for the form item
-				'id'			=> 'cc_author_postauthor', // Class for the form item
-				'selected'		=> $postauthorid // Select the post's author to be displayed by default
-			) );
 			?>
-			<div id="cc_author_postauthor_loading" class="cc_author_postauthor_loading"><img id="cc_author_postauthor_loading_img" class="cc_author_postauthor_loading_img" src="<?php echo admin_url( 'images/wpspin_light-2x.gif' ); ?>" width="20px" height="auto"></div>
-			<input type="hidden" name="cc_author_currentpostauthor" value="<?php echo $postauthorid; ?>">
-			<input type="hidden" name="cc_author_javascript" id="cc_author_javascript" value="">
+			<div id="cc_author_metabox_postauthor" class="cc_author_metabox_postauthor">
+			<?php
+				wp_dropdown_users( array(
+					'name'			=> 'cc_author_postauthor', // Name for the form item
+					'id'			=> 'cc_author_postauthor', // ID for the form item
+					'class'			=> 'cc_author_postauthor', // Class for the form item
+					'selected'		=> $postauthorid // Select the post's author to be displayed by default
+				) );
+				?>
+				<span class="spinner"></span>
+				<input type="hidden" name="cc_author_currentpostauthor" value="<?php echo $postauthorid; ?>">
+				<input type="hidden" name="cc_author_javascript" id="cc_author_javascript" value="">
+				</div><!-- #cc_author_metabox_postauthor -->
 			<?php
 		}
 		?>
@@ -115,6 +120,10 @@ function cc_author_metabox( $post ) {
 		$descEditor = new ccAuthorDescEditor( $cc_author_meta[0]['description'], 'cc_author_meta[0][description]' ); // Create the bio editor object
 		echo $descEditor->editor(); // Display the editor
 		?>
+		<div class="cc_author_meta_update_profile">
+			<input type="checkbox" name="cc_author_meta[0][update_profile]" id="cc_author_meta[0][update_profile]" value="Profile">Update Profile
+			<p class="description">Enabling this will update the author's user profile with the information you've entered.</p>
+		</div>
 	</div>
 	<?php
 } // cc_author_metabox( $post )
@@ -191,6 +200,19 @@ function cc_author_save_meta( $post_id ) {
 			'post_author'	=> $_POST['cc_author_postauthor'] // Use the post author ID from the dropdown
 		) );
 		add_action( 'save_post', 'cc_author_save_meta' ); // Re-add the 'save_post' hook after the post author is updated
+		
+		/* If 'Update Profile' is enabled, save the author info to the user profile of the author */
+		foreach ( $author as $authormeta ) {
+			foreach ( $authormeta as $key => $meta ) {
+				if ( isset( $authormeta['update_profile'] ) ) {
+					wp_update_user( array(
+						'ID'			=>	$_POST['cc_author_postauthor'],	// Author user ID
+						'display_name'	=>	$authormeta['display_name'],	// Display name
+						'description'	=>	$authormeta['description'],		// Biographical info
+					) );
+				} // if ( isset( $authormeta['update_profile'] ) )
+			} // foreach ( $authormeta as $key => $meta )
+		} // foreach ( $author as $authormeta )
 	}
 } // cc_author_save_meta( $post_id )
 add_action( 'save_post', 'cc_author_save_meta' ); // Hook WordPress to save meta data when saving post/page

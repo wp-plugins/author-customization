@@ -4,7 +4,7 @@ Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.5.2
 Tested up to: 3.8
-Stable tag: 0.1.1
+Stable tag: 0.2.0
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,10 @@ In order for author information to appear on your posts and pages, the theme you
 3. TinyMCE editor on user profile page. This is optional, but enabled by default.
 
 == Changelog ==
+
+= 0.2.0 =
+* Added option to update the author's user profile with the data entered in the post author info fields.
+* Bug fixes
 
 = 0.1.1 =
 * Bug fix: changes made to author info after a new post author was selected were not being saved because the server was not being told whether JavaScript was active.

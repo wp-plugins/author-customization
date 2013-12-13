@@ -9,16 +9,16 @@
 	margin-bottom: 1em;
 }
 
+.cc_author_metabox .cc_author_meta_update_profile {
+	margin-top: 1em;
+}
+
 .cc_author_metabox input[type='text'],
 .cc_author_metabox textarea {
 	width: 98%;
 }
 
-.cc_author_postauthor_loading {
-	margin-left: 0.5em;
+.cc_author_metabox .spinner {
+	float: left;
 	vertical-align: middle;
-	display: inline;
-}
-.cc_author_postauthor_loading_img {
-	display: none;
 }
