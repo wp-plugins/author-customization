@@ -25,12 +25,10 @@ Features: per-post author display name and biographical info, TinyMCE (WYSIWYG) 
 == Frequently Asked Questions ==
 
 = What data about an author gets saved to post metadata? =
-User data is copied from the selected author's profile at the time the post is first started. This includes:
-* Display name
-* Biographical info
+The post author's display name and biographical info are copied from their user profile.
 
 = Can I turn on per-post author info down the line? =
-Yes. The plugin saves author info to each post you edit whether or not you've enabled displaying author data from the post metadata.
+Yes. The plugin saves author info to each post you edit whether or not you've enabled displaying author data from the post metadata. If you decide later that you want per-post author information to be displayed, any post you've created or edited since installing the plugin will already be set up to do this.
 
 = Can I assign multiple authors to a post? =
 Not yet, but that's in the works. I plan to add support for this in a future update.
