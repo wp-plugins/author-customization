@@ -4,7 +4,7 @@ Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.5.2
 Tested up to: 3.8
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,11 @@ In order for author information to appear on your posts and pages, the theme you
 
 == Changelog ==
 
+= 0.2.1 =
+* Bug fix: WYSIWYG on Edit Profile page was not showing full formatting.
+* Bug fix: Calling profile display name and description when no post-specific info was available could result in fatal error.
+* Bug fix: WYSIWYG editor settings was called improperly for profile page editor.
+
 = 0.2.0 =
 * Added option to update the author's user profile with the data entered in the post author info fields.
 * Bug fixes
@@ -58,6 +63,9 @@ In order for author information to appear on your posts and pages, the theme you
 Initial release.
 
 == Upgrade Notice ==
+
+= 0.2.1 =
+Fixed bugs that can cause fatal errors when displaying the author name & description.
 
 = 0.1.1 =
 Major bug in saving customized author info when selecting a new post author has been corrected.

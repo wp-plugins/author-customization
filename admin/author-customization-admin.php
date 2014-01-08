@@ -8,6 +8,27 @@ author-customization.php
 
 
 /**
+ * Plugin Admin Initialization
+ * Environment data and other elements to initialize the plugin admin
+ */
+function cc_author_admin_init() {
+	/* Set plugin data for use elsewhere in the plugin */
+	if ( function_exists( 'get_plugin_data' ) ) {
+		$_ENV['cc_author_plugindata'] = get_plugin_data( plugin_dir_path( dirname( __FILE__ ) ) . 'author-customization.php', false );
+	}
+	else { // If the function get_plugin_data does not exist, return empty array
+		$_ENV['cc_author_plugindata'] = array(
+			'Version'	=>	''
+		);
+	}
+}
+add_action( 'admin_init', 'cc_author_admin_init' ); // Hook plugin admin initialization
+/**
+ * End Plugin Admin Initialization
+ */
+
+
+/**
  * Create entry in Settings menu
  * A submenu entry titled 'Custom Authors' is shown under Settings
  */
@@ -36,25 +57,25 @@ function cc_author_postpage_init() {
 	register_setting( 'cc_author_options', 'cc_author_postpage', 'cc_author_postpage_validate' ); // Register the settings group and specify validation and database locations
 	
 	add_settings_section(
-		'postpage',							// Name of the section
-		'Post/Page Settings',				// Title of the section, displayed on the options page
-		'cc_author_postpage_callback',		// Callback function for displaying information
-		'cc-author'							// Page ID for the options page
-	);
-	
-	add_settings_field(						// Set whether author info is pulled from post meta or global user data
-		'perpost',							// Field ID
-		'Use author data from post',		// Field title, displayed to the left of the field on the options page
-		'cc_author_perpost_callback',		// Callback function to display the field
-		'cc-author',						// Page ID for the options page
-		'postpage'							// Settings section in which to display the field
-	);
-	add_settings_field(						// Set whether author info is pulled from post meta or global user data
-		'relnofollow',						// Field ID
-		'Add rel="nofollow" to bio links',	// Field title, displayed to the left of the field on the options page
-		'cc_author_relnofollow_callback',	// Callback function to display the field
-		'cc-author',						// Page ID for the options page
-		'postpage'							// Settings section in which to display the field
+		'postpage',									// Name of the section
+		'Post/Page Settings',						// Title of the section, displayed on the options page
+		'cc_author_postpage_callback',				// Callback function for displaying information
+		'cc-author'									// Page ID for the options page
+	);		
+			
+	add_settings_field(								// Set whether author info is pulled from post meta or global user data
+		'perpost',									// Field ID
+		'Use author data from post',				// Field title, displayed to the left of the field on the options page
+		'cc_author_perpost_callback',				// Callback function to display the field
+		'cc-author',								// Page ID for the options page
+		'postpage'									// Settings section in which to display the field
+	);		
+	add_settings_field(								// Set whether author info is pulled from post meta or global user data
+		'relnofollow',								// Field ID
+		'Add rel="nofollow" to bio links',			// Field title, displayed to the left of the field on the options page
+		'cc_author_relnofollow_callback',			// Callback function to display the field
+		'cc-author',								// Page ID for the options page
+		'postpage'									// Settings section in which to display the field
 	);
 } // cc_author_postpage_list()
 
@@ -75,8 +96,8 @@ function cc_author_perpost_callback() {
 		$checked = '';
 	}
 	
-	echo '<input id="perpost" name="cc_author_postpage[perpost]" type="checkbox" value="Post" ' . $checked . '>'; // Print the input field to the screen
-	echo '<p class="description">If checked, the plugin will display author information from the post metadata instead of the user database. Useful for keeping author information specific to the time a post was published.</p><p class="description"><strong>Note:</strong> You can toggle this at any time, as this plugin always saves author information to post metadata regardless of this setting.</p>'; // Description of option
+	echo '<input id="cc_author_postpage[perpost]" name="cc_author_postpage[perpost]" type="checkbox" value="Post" ' . $checked . '>'; // Print the input field to the screen
+	echo '<p class="description">Display author information from the post metadata instead of the user database. Useful for keeping author information specific to the time a post was published.</p><p class="description"><strong>Note:</strong> You can toggle this at any time, as this plugin always saves author information to post metadata regardless of this setting.</p>'; // Description of option
 } // cc_author_perpost_callback()
 
 /* Callback for 'relnofollow' option */
@@ -91,8 +112,8 @@ function cc_author_relnofollow_callback() {
 		$checked = '';
 	}
 	
-	echo '<input id="relnofollow" name="cc_author_postpage[relnofollow]" type="checkbox" value="Nofollow" ' . $checked . '>'; // Print the input field to the screen
-	echo '<p class="description">Add a <a href="https://support.google.com/webmasters/answer/96569?hl=en">rel="nofollow"</a> attribute to any links in an author\'s biographical info when displayed. This prevents search engines from counting those links as part of your rank score.</p>'; // Description of option
+	echo '<input id="cc_author_postpage[relnofollow]" name="cc_author_postpage[relnofollow]" type="checkbox" value="Nofollow" ' . $checked . '>'; // Print the input field to the screen
+	echo '<p class="description">Add a <a href="https://support.google.com/webmasters/answer/96569?hl=en" target="_blank">rel="nofollow"</a> attribute to any links in an author\'s biographical info when displayed. This prevents search engines from counting those links as part of your rank score.</p>'; // Description of option
 } // cc_author_relnofollow_callback()
 
 /* Validate submitted options */
@@ -100,8 +121,8 @@ function cc_author_postpage_validate( $input ) {
 	$postpage = get_option( 'cc_author_postpage' ); // Retrieve existing options values from the database
 	
 	/* Directly set values that don't require validation */
-	$postpage['perpost']		=	$input['perpost'];
-	$postpage['relnofollow']	=	$input['relnofollow'];
+	$postpage['perpost']			=	$input['perpost'];
+	$postpage['relnofollow']		=	$input['relnofollow'];
 	
 	return $postpage; // Send values to database
 } // cc_author_postpage_validate()
@@ -152,7 +173,7 @@ function cc_author_wysiwyg_callback() {
 		$checked = '';
 	}
 	
-	echo '<input id="wysiwyg" name="cc_author_admin_options[wysiwyg]" type="checkbox" value="WYSIWYG" ' . $checked . '>'; // Print the input field to the screen
+	echo '<input id="cc_author_admin_options[wysiwyg]" name="cc_author_admin_options[wysiwyg]" type="checkbox" value="WYSIWYG" ' . $checked . '>'; // Print the input field to the screen
 	echo '<p class="description">Enable a WYSIWYG editor for the author bio field, both in the user profile area and in the post/page meta box.</p>'; // Description of option
 } // cc_author_wysiwyg_callback()/* Call back fo
 
@@ -199,11 +220,12 @@ function cc_author_options_page() {
  * End Options Page
  */
 
-/* Include the functions for use while editing a post */
-require_once( dirname( __FILE__ ) . '/includes/edit-post.php' ); // Retrieve file containing edit post functions
-
-/* If editing user profile, include the functions for use while editing a user */
-if ( strstr( $_SERVER['REQUEST_URI'], 'wp-admin/profile.php' ) || strstr( $_SERVER['REQUEST_URI'], 'wp-admin/user-edit.php' ) ) {
-	require_once( dirname( __FILE__ ) . '/includes/edit-user.php' ); // Retrieve file containing edit user functions
-}
+/**
+ * Admin Includes
+ */
+require_once( dirname( __FILE__ ) . '/includes/edit-post.php' ); // File containing edit post functions
+require_once( dirname( __FILE__ ) . '/includes/edit-user.php' ); // File containing edit user functions
+/**
+ * End Admin Includes
+ */
 ?>
