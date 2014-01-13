@@ -4,7 +4,7 @@ Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.5.2
 Tested up to: 3.8
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,9 @@ In order for author information to appear on your posts and pages, the theme you
 3. TinyMCE editor on user profile page. This is optional, but enabled by default.
 
 == Changelog ==
+
+= 0.2.2 =
+Fixed bug that threw a "Missing Argument" error when creating a new post.
 
 = 0.2.1 =
 * Bug fix: WYSIWYG on Edit Profile page was not showing full formatting.
