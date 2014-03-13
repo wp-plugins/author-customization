@@ -1,8 +1,5 @@
 /*
-Remove the native WordPress biographical info textarea to make room for upgraded one
-
-Called by:
-/admin/includes/class.ccAuthorDescEditor.php
+Remove the native WordPress biographical info textarea to make room for the upgraded one.
 */
 
 (function( $ ) { 

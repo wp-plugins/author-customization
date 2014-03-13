@@ -2,13 +2,13 @@
 Contributors: cconover
 Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
-Requires at least: 3.5.2
-Tested up to: 3.8
-Stable tag: 0.2.2
+Requires at least: 3.6
+Tested up to: 3.8.1
+Stable tag: 0.3.0
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Author Customization adds additional author management capabilities beyond the native user account structure.
+Author Customization adds additional author management capabilities beyond the native user account structure, such as per-post author information and rich user bio editing.
 
 == Description ==
 
@@ -46,6 +46,13 @@ In order for author information to appear on your posts and pages, the theme you
 
 == Changelog ==
 
+= 0.3.0 =
+The plugin has been completely rewritten to be object-oriented, in preparation for new features being added in the future, and to make it run more efficiently.
+
+The plugin options have been restructured as well. Whe you upgrade, your current settings should be ported to the new structure. If you notice any strange behavior, check the plugin settings page.
+
+Note: this plugin has some incompatibilities with WordPress 3.9. These will be fixed before the official release of 3.9, and will be noted in the changelog.
+
 = 0.2.2 =
 Fixed bug that threw a "Missing Argument" error when creating a new post.
 
@@ -66,6 +73,9 @@ Fixed bug that threw a "Missing Argument" error when creating a new post.
 Initial release.
 
 == Upgrade Notice ==
+
+= 0.3.0 =
+Completely rewritten to be object-oriented.
 
 = 0.2.1 =
 Fixed bugs that can cause fatal errors when displaying the author name & description.
