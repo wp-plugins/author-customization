@@ -3,25 +3,27 @@
  * Plugin Name: Author Customization
  * Plugin URI: https://christiaanconover.com/code/wp-author-customization?ref=plugin-data
  * Description: Author Customization adds additional author management capabilities beyond the native user account structure. Save author data to each post, enable WYSIWYG editing of biographical info, and more.
- * Version: 0.3.0
+ * Version: 0.3.1
  * Author: Christiaan Conover
  * Author URI: https://christiaanconover.com?ref=wp-author-customization-plugin-author-uri
  * License: GPLv2
  * @package cc-author
  **/
 
+namespace cconover\author;
+
 /**
  * Main plugin class
  **/
-class cc_author {
+class Author {
 	/* Plugin constants */
 	const ID = 'cc-author'; // Plugin identifier
 	const NAME = 'Author Customization'; // Plugin name
-	const VERSION = '0.3.0-alpha'; // Plugin version
+	const VERSION = '0.3.1'; // Plugin version
 	const WPVER = '3.6'; // Minimum version of WordPress required for this plugin
+	const PREFIX = 'cc_author_'; // Plugin database prefix
 	
 	/* Plugin properties */
-	protected $prefix = 'cc_author_'; // Plugin database prefix
 	protected $options; // Plugin options
 	protected $pluginpath; // Plugin directory path
 	protected $pluginfile; // Plugin file path
@@ -42,7 +44,7 @@ class cc_author {
 		// Load admin class if in admin
 		if ( is_admin() ) {
 			require_once( $this->pluginpath . '/admin/author-customization-admin.php' );
-			$admin = new cc_author_admin;
+			$admin = new \cconover\author\Admin;
 			
 			// Register plugin activation and deactivation hooks
 			register_activation_hook( $this->pluginfile, array( &$admin, 'activate' ) );
@@ -58,10 +60,10 @@ class cc_author {
 			$name = 'Multiple Authors';
 		}
 		else { // If multiple authors support is not enabled in plugin options, run this code
-			$postmeta = get_post_meta( $post->ID, '_' . $this->prefix . 'meta', true ); // Get the post-specific author metadata, if available
+			$postmeta = get_post_meta( $post->ID, '_' . self::PREFIX . 'meta', true ); // Get the post-specific author metadata, if available
 			
 			/* If the plugin setting is enabled and there's post-specific metadata stored and a post, page, or attachment is being displayed, show the post-specific display name. Otherwise use the profile display name. */
-			if ( $postmeta && !is_author() && isset( $this->options['perpost'] ) ) {
+			if ( $postmeta && ! is_author() && isset( $this->options['perpost'] ) ) {
 				foreach ( $postmeta as $authormeta ) {
 					foreach ( $authormeta as $key => $meta ) {
 						$name = $authormeta['display_name']; // Set the name to the display name stored for the post
@@ -84,7 +86,7 @@ class cc_author {
 			
 		}
 		else { // If multiple authors support is not enabled in plugin options, run this code
-			$author = get_post_meta( $post->ID, '_' . $this->prefix . 'meta', true ); // Get the post-specific author metadata
+			$author = get_post_meta( $post->ID, '_' . self::PREFIX . 'meta', true ); // Get the post-specific author metadata
 			
 			/* If the plugin setting is enabled and there's post-specific metadata stored and a post, page, or attachment is being displayed, show the post-specific bio. Otherwise use the profile bio. */
 			if ( $author && isset( $this->options['perpost'] ) ) {
@@ -124,7 +126,7 @@ class cc_author {
 	} // End initialize()
 	
 	protected function get_options() {
-		$this->options = get_option( $this->prefix . 'options' );
+		$this->options = get_option( self::PREFIX . 'options' );
 	} // End get_options()
 	/* End plugin options and initializers */
 }
@@ -134,5 +136,5 @@ class cc_author {
 
 /* Create an instance of the plugin in the global space */
 global $cc_author;
-$cc_author = new cc_author;
+$cc_author = new \cconover\author\Author;
 ?>

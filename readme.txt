@@ -3,18 +3,24 @@ Contributors: cconover
 Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.6
-Tested up to: 3.8.1
-Stable tag: 0.3.0
+Tested up to: 3.9
+Stable tag: 0.3.1
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Author Customization adds additional author management capabilities beyond the native user account structure, such as per-post author information and rich user bio editing.
+Author Customization expands core author management with features such as per-post author information and rich user bio editing.
 
 == Description ==
 
-Author Customization gives you much more flexibility in managing post and page author data. Your author data will no longer be tied to the WordPress user system, and can now be managed on a per-post basis.
+Author Customization gives you much more flexibility in managing post and page author data. Your author data will no longer be tied solely to the WordPress user system, and can now be managed on a per-post basis. Author name and description are saved with each post, allowing you to preserve this information as it was when the post was published.
 
-Features: per-post author display name and biographical info, TinyMCE (WYSIWYG) editor for user profile and per-post biographical info, rel="nofollow" link inside biographical info entries
+**Features**
+
+- Per-post author display name and biographical info
+- TinyMCE (WYSIWYG) editor for user profile and per-post biographical info
+- rel="nofollow" link inside biographical info entries
+
+[Author Customization on Github](https://github.com/cconover/wp-author-customization)
 
 == Installation ==
 
@@ -27,11 +33,11 @@ Features: per-post author display name and biographical info, TinyMCE (WYSIWYG) 
 = What data about an author gets saved to post metadata? =
 The post author's display name and biographical info are copied from their user profile.
 
-= Can I turn on per-post author info down the line? =
+= Can I turn per-post author info on or off at any time? =
 Yes. The plugin saves author info to each post you edit whether or not you've enabled displaying author data from the post metadata. If you decide later that you want per-post author information to be displayed, any post you've created or edited since installing the plugin will already be set up to do this.
 
 = Can I assign multiple authors to a post? =
-Not yet, but that's in the works. I plan to add support for this in a future update.
+Not yet, but [that's in the works](https://github.com/cconover/wp-author-customization/issues/9). I plan to add support for this in a future update.
 
 = I'm not seeing any author information on my posts! What's gone wrong? =
 In order for author information to appear on your posts and pages, the theme you're using must have support for this. If it does, you should see your author info changes without issue. If you know it shows author information but you're not seeing the changes you made using this plugin, pop over to the Support area. If your theme does not have support for author info, contact the theme developer.
@@ -45,6 +51,12 @@ In order for author information to appear on your posts and pages, the theme you
 3. TinyMCE editor on user profile page. This is optional, but enabled by default.
 
 == Changelog ==
+
+= 0.3.1 =
+* Full support for WordPress 3.9 and TinyMCE 4.0
+* Fixed the plugin upgrade process to ensure deprecated settings are upgraded, and upgrades run more smoothly for all future versions
+* Option to turn WYSIWYG on or off has been removed. WYSIWYG is on unless the system or user cannot support it.
+* General code cleanup and minor bug fixes
 
 = 0.3.0 =
 The plugin has been completely rewritten to be object-oriented, in preparation for new features being added in the future, and to make it run more efficiently.
@@ -73,6 +85,9 @@ Fixed bug that threw a "Missing Argument" error when creating a new post.
 Initial release.
 
 == Upgrade Notice ==
+
+= 0.3.1 =
+Fixed incompatibilities with WordPress 3.9 and TinyMCE 4.0.
 
 = 0.3.0 =
 Completely rewritten to be object-oriented.
