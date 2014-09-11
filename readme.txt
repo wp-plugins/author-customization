@@ -4,7 +4,7 @@ Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
