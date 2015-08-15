@@ -3,7 +3,7 @@ Contributors: cconover
 Donate link: https://christiaanconover.com/code/wp-author-customization#donate
 Tags: author, user, profile, tinymce, wysiwyg, rel-nofollow
 Requires at least: 3.6
-Tested up to: 4.0
+Tested up to: 4.3
 Stable tag: 0.3.3
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -52,6 +52,9 @@ In order for author information to appear on your posts and pages, the theme you
 
 == Changelog ==
 
+= 0.3.3 =
+Fixed PHP tag syntax for rendering the rich editor.
+
 = 0.3.2 =
 Fixed bug causing author info not to be saved to post meta if the user doesn't have permissions to edit other users' posts and pages.
 
@@ -88,6 +91,9 @@ Fixed bug that threw a "Missing Argument" error when creating a new post.
 Initial release.
 
 == Upgrade Notice ==
+
+= 0.3.3 =
+Fixed improper syntax for rendering the rich editor.
 
 = 0.3.2 =
 Fixed bug causing author info not to be saved to post meta if the user doesn't have permissions to edit other users' posts and pages.
